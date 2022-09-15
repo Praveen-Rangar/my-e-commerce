@@ -12,7 +12,7 @@ function Navbar({ productCount }) {
           alt="error"
         />
         <div className="flex items-center justify-between space-x-5 ">
-          <ul className="md:flex md:space-x-9 md:text-[14px] md:text-gray-500 hidden md:block  ">
+          <ul className="md:flex md:space-x-9 md:text-[14px] md:text-gray-500 hidden   ">
             <li></li>
             <Link to="" className=" hover:text-primary-500">
               HOME
