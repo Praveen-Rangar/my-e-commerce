@@ -1,0 +1,26 @@
+{
+  "files": {
+    "src/Product.jsx": [
+      {
+        "id": "fc596384-2efd-4fca-8592-f5f1804fbe33",
+        "line": 1,
+        "version": 2196,
+        "index": 18
+      }
+    ],
+    "src/ProductList.jsx": [
+      {
+        "id": "0c29d2bd-d54f-49bf-b4dd-f8e6374fbdb3",
+        "line": 1,
+        "version": 1674,
+        "index": 18
+      },
+      {
+        "id": "a7215497-0b97-4b87-a7fe-14bdedb51eff",
+        "line": 1,
+        "version": 1674,
+        "index": 18
+      }
+    ]
+  }
+}
