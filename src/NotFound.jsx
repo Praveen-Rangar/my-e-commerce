@@ -23,7 +23,7 @@ function NotFound() {
 
       <div className="">
         <img
-          src="https://images.squarespace-cdn.com/content/v1/51cdafc4e4b09eb676a64e68/1470175715831-NUJOMI6VW13ZNT1MI0VB/image-asset.jpeg"
+          src=" https://images.squarespace-cdn.com/content/v1/51cdafc4e4b09eb676a64e68/1470175715831-NUJOMI6VW13ZNT1MI0VB/image-asset.jpeg"
           className="max-w-[200px] mix-blend-multiply animate-bounce"
         />{" "}
       </div>
@@ -32,3 +32,4 @@ function NotFound() {
 }
 
 export default NotFound;
+//
