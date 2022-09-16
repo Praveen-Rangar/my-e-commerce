@@ -3,6 +3,8 @@ import ProductList from "./ProductList";
 import { getProductList } from "./Api";
 import NoMatching from "./NoMatching";
 import Loading from "./Loading";
+import { GoSearch } from "react-icons/go";
+
 
 function ProductListPage() {
   const [productList, setProductList] = useState([]);
@@ -59,14 +61,19 @@ function ProductListPage() {
   return (
     <div>
       <div className="mx-4 my-6 mb-5 bg-white rounded md:mx-8 md:mt-24 md:pb-24 md:py-20 md:px-10">
-        <div className="flex flex-wrap pt-6 mx-5 md:justify-between md:px-6">
-          <input
-            value={query}
-            placeholder="search"
-            className="w-full border border-gray-500 rounded md:w-64"
-            onChange={handleChange}
-          />
-
+        <div className="flex flex-wrap py-6 mx-5 md:justify-between md:px-6">
+          <div
+            className=" flex items-center border border-solid border-gray-500 rounded-md 
+          ml-[10px] p-[5px] focus-within:border-[#8a4af3] transition-all"
+          >
+            <input
+              value={query}
+              placeholder="search"
+              className="w-full rounded outline-none md:w-64"
+              onChange={handleChange}
+            />
+            <GoSearch className="text-[16px]" />
+          </div>
           <select
             value={sort}
             onChange={handleSortChange}
@@ -82,9 +89,7 @@ function ProductListPage() {
         </div>
 
         {data.length > 0 && <ProductList products={data} />}
-        {data.length == 0 && (
-          <NoMatching />
-        )}
+        {data.length == 0 && <NoMatching />}
       </div>
     </div>
   );

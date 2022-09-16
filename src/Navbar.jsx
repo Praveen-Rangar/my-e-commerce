@@ -4,7 +4,7 @@ import { BiShoppingBag } from "react-icons/bi";
 
 function Navbar({ productCount }) {
   return (
-    <div className="py-3 bg-white border-b border-gray-100 md:py-4">
+    <div className="py-5 bg-white border-b border-gray-100 md:py-4">
       <div className="  max-w-7xl max-h-[64px] flex items-center justify-between px-5 mx-3 ">
         <img
           className=" w-28 md:w-36"
@@ -24,11 +24,13 @@ function Navbar({ productCount }) {
           </ul>
 
           <BiShoppingBag className="mb-2 text-4xl md:text-5xl text-primary-500 pointer-cursor" />
-          <div className="">
-            <Link to={"/Cart"} className="cursor-pointer ">
+
+          <Link to={"/Cart"} className="cursor-pointer ">
+            <div className="-ml-[49px] mt-[4px] text-sm text-primary-500">
+              {" "}
               {productCount}
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

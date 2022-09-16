@@ -8,33 +8,31 @@ import NotFound from "./NotFound";
 import { useState } from "react";
 import Cart from "./Cart";
 
-
 function App() {
-
-  const savedDataString = localStorage.getItem("my-Cart") || "{}" ;
-  console.log("savedadatastring is", savedDataString)
+  const savedDataString = localStorage.getItem("my-Cart") || "{}";
+  console.log("savedadatastring is", savedDataString);
   const savedData = JSON.parse(savedDataString);
-  console.log("saveddata is", savedData)
-  
+  console.log("saveddata is", savedData);
+
   const [cart, setCart] = useState(savedData);
 
- function handleAddToCart(productId, count){
-  const oldCount = cart[productId] || 0;
-  const newCart = { ...cart, [productId]: oldCount + count };
-  setCart(newCart);
-  const cartString = JSON.stringify(newCart);
-  localStorage.setItem("my-Cart", cartString);
-};  
+  function handleAddToCart(productId, count) {
+    const oldCount = cart[productId] || 0;
+    const newCart = { ...cart, [productId]: oldCount + count };
+    setCart(newCart);
+    const cartString = JSON.stringify(newCart);
+    localStorage.setItem("my-Cart", cartString);
+  }
 
-const totalCount = Object.keys(cart).reduce(function(previous, current){
-return previous + cart[current];
-}, 0);
+  const totalCount = Object.keys(cart).reduce(function (previous, current) {
+    return previous + cart[current];
+  }, 0);
 
   return (
     <div className="flex flex-col h-screen overflow-scroll bg-gray-200 font-body">
       <Navbar productCount={totalCount} />
 
-      <div className=" grow">
+      <div className="flex items-center justify-center grow ">
         <Routes>
           <Route index element={<ProductListPage />}>
             {" "}
@@ -47,10 +45,12 @@ return previous + cart[current];
           </Route>
           <Route path="*" element={<NotFound />}>
             {" "}
-          </Route> 
-          <Route path="/Cart" element={ <Cart/> } > </Route>
-        </Routes> </div>
-      
+          </Route>
+          <Route path="/Cart" element={<Cart />}>
+            {" "}
+          </Route>
+        </Routes>{" "}
+      </div>
 
       <Footer />
     </div>

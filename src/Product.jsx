@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 function Product({ thumbnail, category, title, price, id }) {
   return (
     <div className="flex items-stretch ">
-      <div className=" flex flex-col   space-y-1.5 shadow-xl py-6 px-5 mt-6  max-w-6xl h-auto">
+      <div className=" flex flex-col   space-y-1.5 shadow-xl pt-6 pb-3 px-5 mt-6  max-w-6xl h-auto">
         <div className="max-w-full max-h-80 aspect-square ">
-          <img
-            className="object-cover w-full h-full rounded-md "
-            src={thumbnail}
-          />
+          <Link to={"/products/" + id}>
+            <img
+              className="object-cover w-full h-full rounded-md cursor-pointer"
+              src={thumbnail}
+            />
+          </Link>
         </div>
         <h4 className="text-gray-500">{category}</h4>
         <h2 className="font-semibold text-md">{title}</h2>
@@ -67,12 +69,6 @@ function Product({ thumbnail, category, title, price, id }) {
         </div>
         <h3 className="mb-3 font-bold text-md">${price}.00</h3>
         <span className="grow"></span>
-        <Link
-          to={"/products/" + id}
-          className=" max-w-[208px] h-[28px] bg-primary-500  rounded text-white hover:bg-primary-700 mt-4  flex justify-center align-center "
-        >
-          View Details{" "}
-        </Link>
       </div>
     </div>
   );
