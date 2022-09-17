@@ -24,7 +24,7 @@ function Cart() {
                   src="https://cdn.discordapp.com/attachments/992343608189526056/1002832090527711283/mug-white-4.jpeg"
                 />
                 <p className="text-primary-500">Black Printed Coffe Mug</p>
-              </div>rgb(169,169,169)
+              </div>
               <div className="flex items-center mr-20 space-x-24">
                 <p>$15.00</p>
                 <p>1</p>
