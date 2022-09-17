@@ -7,8 +7,26 @@ import Footer from "./Footer";
 import NotFound from "./NotFound";
 import { useState } from "react";
 import Cart from "./Cart";
+import Announce from "./Announce";
 
 function App() {
+
+  
+  const promises = Object.keys(Cart).map(function(productId){ 
+       return getProductData(productId);
+        });
+        
+  const bigPromise = Promise.all(promises);
+
+  bigPromise.then(function(products){
+    return console.log("aagaya me", products )
+    
+  
+  })
+
+
+
+  
   const savedDataString = localStorage.getItem("my-Cart") || "{}";
   console.log("savedadatastring is", savedDataString);
   const savedData = JSON.parse(savedDataString);
@@ -29,6 +47,8 @@ function App() {
   }, 0);
 
   return (
+    <>
+    <Announce />
     <div className="flex flex-col h-screen overflow-scroll bg-gray-200 font-body">
       <Navbar productCount={totalCount} />
 
@@ -54,6 +74,7 @@ function App() {
 
       <Footer />
     </div>
+    </>
   );
 }
 

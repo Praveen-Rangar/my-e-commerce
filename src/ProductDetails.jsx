@@ -5,6 +5,7 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import { getProductData } from "./Api";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
+import Cart from "./Cart";
 
 function ProductDetails({ onAddToCart }) {
   const params = useParams();
