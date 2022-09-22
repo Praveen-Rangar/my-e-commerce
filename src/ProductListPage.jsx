@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import ProductList from "./ProductList";
 import { getProductList } from "./Api";
 import NoMatching from "./NoMatching";
@@ -36,23 +36,45 @@ function ProductListPage() {
     setSort(event.target.value);
   }
 
-  if (sort === "low to high") {
-    data.sort(function (x, y) {
-      return x.price - y.price;
-    });
-  }
+   useMemo (function(){
+  
+    console.log("usememo running");
+        if (sort === "low to high") {
+      data.sort(function (x, y) {
+        return x.price - y.price;
+      });
+    }
 
-  if (sort === "high to low") {
-    data.sort(function (x, y) {
-      return y.price - x.price;
-    });
-  }
+    if (sort === "high to low") {
+      data.sort(function (x, y) {
+        return y.price - x.price;
+      });
+    }
 
-  if (sort === "Title") {
-    data.sort(function (x, y) {
-      return x.title < y.title ? -1 : 1;
-    });
-  }
+    if (sort === "Title") {
+      data.sort(function (x, y) {
+        return x.title < y.title ? -1 : 1;
+      }); }
+    
+  },[sort]
+  );
+  // if (sort === "low to high") {
+  //   data.sort(function (x, y) {
+  //     return x.price - y.price;
+  //   });
+  // }
+
+  // if (sort === "high to low") {
+  //   data.sort(function (x, y) {
+  //     return y.price - x.price;
+  //   });
+  // }
+
+  // if (sort === "Title") {
+  //   data.sort(function (x, y) {
+  //     return x.title < y.title ? -1 : 1;
+  //   });
+  // }
 
   if (loading) {
     return <Loading />;

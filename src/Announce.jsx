@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { ImCancelCircle } from "react-icons/im";
 
 function Announce() {
   const [announceStyle, setAnnounceStyle] = useState(
-    "bg-[#8a4af3] font-bold text-white flex items-center justify-center space-x-1"
+    "bg-[#8a4af3] font-bold text-white flex items-center space-x-2 justify-center space-x-1"
   );
 
   function handleClose() {
@@ -13,7 +13,7 @@ function Announce() {
   return (
     <div className={announceStyle}>
       <h2>Hurry up it's 40% off now</h2>
-      <AiOutlineClose className="cursor-pointer" onClick={handleClose} />
+      <ImCancelCircle className="cursor-pointer" onClick={handleClose} />
     </div>
   );
 }

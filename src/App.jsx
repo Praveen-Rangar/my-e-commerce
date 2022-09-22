@@ -8,25 +8,19 @@ import NotFound from "./NotFound";
 import { useState } from "react";
 import Cart from "./Cart";
 import Announce from "./Announce";
+import LoginPage from "./LoginPage";
 
 function App() {
+  const promises = Object.keys(Cart).map(function (productId) {
+    return getProductData(productId);
+  });
 
-  
-  const promises = Object.keys(Cart).map(function(productId){ 
-       return getProductData(productId);
-        });
-        
   const bigPromise = Promise.all(promises);
 
-  bigPromise.then(function(products){
-    return console.log("aagaya me", products )
-    
-  
-  })
+  bigPromise.then(function (products) {
+    return console.log("aagaya me", products);
+  });
 
-
-
-  
   const savedDataString = localStorage.getItem("my-Cart") || "{}";
   console.log("savedadatastring is", savedDataString);
   const savedData = JSON.parse(savedDataString);
@@ -48,32 +42,33 @@ function App() {
 
   return (
     <>
-    <Announce />
-    <div className="flex flex-col h-screen overflow-scroll bg-gray-200 font-body">
-      <Navbar productCount={totalCount} />
+      <Announce />
+      <div className="flex flex-col h-screen overflow-scroll bg-gray-200 font-body">
+        <Navbar productCount={totalCount} />
 
-      <div className="flex items-center justify-center grow ">
-        <Routes>
-          <Route index element={<ProductListPage />}>
-            {" "}
-          </Route>
-          <Route
-            path="/products/:id/"
-            element={<ProductDetails onAddToCart={handleAddToCart} />}
-          >
-            {" "}
-          </Route>
-          <Route path="*" element={<NotFound />}>
-            {" "}
-          </Route>
-          <Route path="/Cart" element={<Cart />}>
-            {" "}
-          </Route>
-        </Routes>{" "}
+        <div className="flex items-center justify-center grow ">
+          <Routes>
+            <Route index element={<ProductListPage />}>
+              {" "}
+            </Route>
+            <Route
+              path="/products/:id/"
+              element={<ProductDetails onAddToCart={handleAddToCart} />}
+            >
+              {" "}
+            </Route>
+            <Route path="*" element={<NotFound />}>
+              {" "}
+            </Route>
+            <Route path="/Cart" element={<Cart />}>
+              {" "}
+            </Route>
+            <Route path="/LoginPage" element={<LoginPage />}></Route>
+          </Routes>{" "}
+        </div>
+
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
     </>
   );
 }
