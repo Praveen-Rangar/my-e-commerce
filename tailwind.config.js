@@ -10,6 +10,7 @@ module.exports = {
       },
 
       white: "rgb(255,255,255)",
+      black: "rgb(0,0,0)",
       gray: {
         200: "rgb(244,245,246)",
         500: "rgb(65,81,97)",

@@ -5,7 +5,6 @@ import NoMatching from "./NoMatching";
 import Loading from "./Loading";
 import { GoSearch } from "react-icons/go";
 
-
 function ProductListPage() {
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +15,7 @@ function ProductListPage() {
   useEffect(function () {
     const list = getProductList();
 
-    list.then(function (product) { 
+    list.then(function (product) {
       setProductList(product);
       setLoading(false);
     });
@@ -36,45 +35,29 @@ function ProductListPage() {
     setSort(event.target.value);
   }
 
-   useMemo (function(){
-  
-    console.log("usememo running");
-        if (sort === "low to high") {
-      data.sort(function (x, y) {
-        return x.price - y.price;
-      });
-    }
+  useMemo(
+    function () {
+      console.log("usememo running");
+      if (sort === "low to high") {
+        data.sort(function (x, y) {
+          return x.price - y.price;
+        });
+      }
 
-    if (sort === "high to low") {
-      data.sort(function (x, y) {
-        return y.price - x.price;
-      });
-    }
+      if (sort === "high to low") {
+        data.sort(function (x, y) {
+          return y.price - x.price;
+        });
+      }
 
-    if (sort === "Title") {
-      data.sort(function (x, y) {
-        return x.title < y.title ? -1 : 1;
-      }); }
-    
-  },[sort]
+      if (sort === "Title") {
+        data.sort(function (x, y) {
+          return x.title < y.title ? -1 : 1;
+        });
+      }
+    },
+    [sort]
   );
-  // if (sort === "low to high") {
-  //   data.sort(function (x, y) {
-  //     return x.price - y.price;
-  //   });
-  // }
-
-  // if (sort === "high to low") {
-  //   data.sort(function (x, y) {
-  //     return y.price - x.price;
-  //   });
-  // }
-
-  // if (sort === "Title") {
-  //   data.sort(function (x, y) {
-  //     return x.title < y.title ? -1 : 1;
-  //   });
-  // }
 
   if (loading) {
     return <Loading />;
@@ -82,7 +65,7 @@ function ProductListPage() {
 
   return (
     <div>
-      <div className="mx-4 my-6 mb-5 bg-white rounded md:mx-8 md:mt-24 md:pb-24 md:py-20 md:px-10">
+      <div className="mx-4 my-6 mb-5 bg-white rounded md:mx-8 md:mt-[70px] md:pb-24 md:py-20 md:px-10">
         <div className="flex flex-wrap py-6 mx-5 md:justify-between md:px-6">
           <div
             className=" flex items-center border border-solid border-gray-500 rounded-md 

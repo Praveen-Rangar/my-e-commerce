@@ -9,18 +9,10 @@ import { useState } from "react";
 import Cart from "./Cart";
 import Announce from "./Announce";
 import LoginPage from "./LoginPage";
+import SignUpPage from "./SignUpPage";
+import ForgotPassword from "./ForgotPassword";
 
 function App() {
-  const promises = Object.keys(Cart).map(function (productId) {
-    return getProductData(productId);
-  });
-
-  const bigPromise = Promise.all(promises);
-
-  bigPromise.then(function (products) {
-    return console.log("aagaya me", products);
-  });
-
   const savedDataString = localStorage.getItem("my-Cart") || "{}";
   console.log("savedadatastring is", savedDataString);
   const savedData = JSON.parse(savedDataString);
@@ -60,10 +52,12 @@ function App() {
             <Route path="*" element={<NotFound />}>
               {" "}
             </Route>
-            <Route path="/Cart" element={<Cart />}>
+            <Route path="/Cart" element={<Cart savedData={savedData} />}>
               {" "}
             </Route>
             <Route path="/LoginPage" element={<LoginPage />}></Route>
+            <Route path="/SignUpPage" element={<SignUpPage />}></Route>
+            <Route path="/ForgotPassword" element={<ForgotPassword />}></Route>
           </Routes>{" "}
         </div>
 
