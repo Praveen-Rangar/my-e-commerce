@@ -11,14 +11,6 @@ function NoMatching() {
         <h3 className="text-3xl text-gray-500 ">
           The Product You Are Looking For Doesn't Exist
         </h3>
-        <div className="flex ">
-          <Link
-            to="/"
-            className="px-6 py-2 font-semibold text-white bg-primary-500 rounded-2xl"
-          >
-            Back To Home
-          </Link>{" "}
-        </div>
       </div>
 
       <div className="">

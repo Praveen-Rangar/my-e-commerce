@@ -16,7 +16,6 @@ function App() {
   const savedDataString = localStorage.getItem("my-Cart") || "{}";
   console.log("savedadatastring is", savedDataString);
   const savedData = JSON.parse(savedDataString);
-  console.log("saveddata is", savedData);
 
   const [cart, setCart] = useState(savedData);
 
@@ -52,7 +51,7 @@ function App() {
             <Route path="*" element={<NotFound />}>
               {" "}
             </Route>
-            <Route path="/Cart" element={<Cart savedData={savedData} />}>
+            <Route path="/Cart" element={<Cart cart={cart} totalcoun />}>
               {" "}
             </Route>
             <Route path="/LoginPage" element={<LoginPage />}></Route>

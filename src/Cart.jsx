@@ -1,10 +1,10 @@
 import React from "react";
 import CartPage from "./CartPage";
 
-function Cart() {
+function Cart({ cart }) {
   return (
     <>
-      <CartPage />
+      <CartPage cart={cart} />
     </>
   );
 }

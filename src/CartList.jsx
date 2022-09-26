@@ -1,7 +1,33 @@
 import React from "react";
 import CartRow from "./CartRow";
+import { useState } from "react";
+import { getProductData } from "./Api";
+import Loading from "./Loading";
+import { useEffect } from "react";
 
-function CartList() {
+function CartList({ cart }) {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(function () {
+    Promise.all(
+      Object.keys(cart).map(function (productId) {
+        return getProductData(productId);
+      })
+    )
+      .then(function (products) {
+        setData(products);
+        setLoading(false);
+      })
+      .catch(function () {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <div className="w-full h-full ">
@@ -14,7 +40,9 @@ function CartList() {
           </div>
         </div>
 
-        <CartRow />
+        {data.map(function (item) {
+          return <CartRow cart={item} />;
+        })}
 
         <div className="flex items-center justify-between w-full h-20 border border-b-gray-500 border-x-gray-500">
           <div className="flex px-4 space-x-5">

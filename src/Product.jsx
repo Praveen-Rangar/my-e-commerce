@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Product({ thumbnail, category, title, price, id }) {
   return (
-    <div className="flex items-stretch hover:shadow-xl">
+    <div className="flex items-stretch ">
       <Link to={"/products/" + id}>
         <div className=" flex flex-col   space-y-1.5 shadow-xl pt-6 pb-3 px-5 mt-6  max-w-6xl h-auto">
           <div className="max-w-full max-h-80 aspect-square ">
