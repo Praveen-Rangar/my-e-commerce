@@ -7,7 +7,6 @@ import Footer from "./Footer";
 import NotFound from "./NotFound";
 import { useState } from "react";
 import Cart from "./Cart";
-import Announce from "./Announce";
 import LoginPage from "./LoginPage";
 import SignUpPage from "./SignUpPage";
 import ForgotPassword from "./ForgotPassword";
@@ -33,7 +32,6 @@ function App() {
 
   return (
     <>
-      <Announce />
       <div className="flex flex-col h-screen overflow-scroll bg-gray-200 font-body">
         <Navbar productCount={totalCount} />
 

@@ -9,6 +9,8 @@ function CartList({ cart }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  console.log("cart aagaya hai bhaiyiyon", cart);
+
   useEffect(function () {
     Promise.all(
       Object.keys(cart).map(function (productId) {
@@ -41,7 +43,7 @@ function CartList({ cart }) {
         </div>
 
         {data.map(function (item) {
-          return <CartRow cart={item} />;
+          return <CartRow cart={item} countKaData={cart} />;
         })}
 
         <div className="flex items-center justify-between w-full h-20 border border-b-gray-500 border-x-gray-500">

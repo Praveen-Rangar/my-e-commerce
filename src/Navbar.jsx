@@ -15,26 +15,18 @@ function Navbar({ productCount }) {
         <div className="flex items-center justify-between ">
           <ul className="md:flex md:items-center md:space-x-12 md:text-[14px] md:text-gray-500 hidden   ">
             <li></li>
-            <Link to="/" className=" hover:underline hover:text-primary-500">
+            <Link to="/" className=" hover:text-primary-500">
               HOME
             </Link>
-            <a className="cursor-pointer hover:underline hover:text-primary-500">
+            <a className="cursor-pointer hover:text-primary-500">
               ALL PRODUCTS
             </a>
-            <a className="cursor-pointer hover:underline hover:text-primary-500">
-              ABOUT
-            </a>
+            <a className="cursor-pointer hover:text-primary-500">ABOUT</a>
 
-            <Link
-              to={"/LoginPage"}
-              className=" hover:underline hover:text-primary-500"
-            >
+            <Link to={"/LoginPage"} className=" hover:text-primary-500">
               LOG IN
             </Link>
-            <Link
-              to={"/SignUpPage"}
-              className=" hover:underline hover:text-primary-500"
-            >
+            <Link to={"/SignUpPage"} className=" hover:text-primary-500">
               SIGN UP
             </Link>
 
