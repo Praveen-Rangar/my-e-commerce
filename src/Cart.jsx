@@ -1,11 +1,11 @@
 import React from "react";
 import CartPage from "./CartPage";
 
-function Cart({ cart }) {
+function Cart({ cart, updateCart }) {
   return (
-    <>
-      <CartPage cart={cart} />
-    </>
+    <div>
+      <CartPage cart={cart} updateCart={updateCart} />
+    </div>
   );
 }
 

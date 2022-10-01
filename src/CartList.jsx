@@ -1,49 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartRow from "./CartRow";
-import { useState } from "react";
-import { getProductData } from "./Api";
-import Loading from "./Loading";
-import { useEffect } from "react";
 
-function CartList({ cart }) {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+function CartList({ data, cart, updateCart }) {
+  const [localCart, setLocalCart] = useState(cart);
 
-  console.log("cart aagaya hai bhaiyiyon", cart);
+  useEffect(
+    function () {
+      setLocalCart(cart);
+    },
+    [cart]
+  );
 
-  useEffect(function () {
-    Promise.all(
-      Object.keys(cart).map(function (productId) {
-        return getProductData(productId);
-      })
-    )
-      .then(function (products) {
-        setData(products);
-        setLoading(false);
-      })
-      .catch(function () {
-        setLoading(false);
-      });
-  }, []);
+  function handleQuantityChange(productid, newValue) {
+    const newLocalcart = { ...localCart, [productid]: newValue };
+    setLocalCart(newLocalcart);
+  }
 
-  if (loading) {
-    return <Loading />;
+  function handleUpdateCartClick() {
+    updateCart(localCart);
+  }
+
+  function handleRemove(productid) {
+    const newCart = { ...cart };
+    delete newCart[productid];
+    updateCart(newCart);
   }
 
   return (
     <div>
       <div className="w-full h-full ">
-        <div className="flex items-center justify-between w-full h-16 bg-gray-200 border border-gray-500">
-          <div className="px-56 ">Product</div>
+        <div className="flex items-center justify-between w-full h-16 font-semibold text-gray-500 bg-gray-100 border border-gray-200">
+          <div className="w-20 px-56">Product</div>
           <div className="flex px-16 space-x-16">
             <p>Price</p>
-            <p>Quantity</p>
+            <p className="">Quantity</p>
             <p>Subtotal</p>
           </div>
         </div>
 
         {data.map(function (item) {
-          return <CartRow cart={item} countKaData={cart} />;
+          return (
+            <CartRow
+              key={data.id}
+              cart={item}
+              quantity={localCart[item.id]}
+              onQuantityChange={handleQuantityChange}
+              onRemove={handleRemove}
+            />
+          );
         })}
 
         <div className="flex items-center justify-between w-full h-20 border border-b-gray-500 border-x-gray-500">
@@ -58,30 +62,12 @@ function CartList({ cart }) {
             </button>
           </div>
           <div className="flex px-4 ">
-            <button className="h-8 text-white rounded w-44 bg-primary-500 hover:bg-primary-700">
+            <button
+              onClick={handleUpdateCartClick}
+              className="h-8 text-white rounded w-44 bg-primary-500 hover:bg-primary-700"
+            >
               UPDATE CART
             </button>
-          </div>
-        </div>
-
-        <div className="flex justify-end mt-20">
-          <div className=" w-[50%] border border-gray-500">
-            <div className="flex items-center h-12 px-5 bg-gray-200 border border-gray-500">
-              Cart total
-            </div>
-            <div className="flex items-center h-12 px-10 border border-gray-500 space-x-28">
-              <p>Subtotal</p>
-              <p>$166.00</p>
-            </div>
-            <div className="flex items-center h-12 px-10 border border-gray-500 space-x-36">
-              <p>total</p>
-              <p>$166.00</p>
-            </div>
-            <div className="px-5 py-4">
-              <button className="w-full text-white rounded h-[50px] bg-primary-500 hover:bg-primary-700">
-                PROCEED TO CHECKOUT
-              </button>
-            </div>
           </div>
         </div>
       </div>

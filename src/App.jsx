@@ -13,7 +13,6 @@ import ForgotPassword from "./ForgotPassword";
 
 function App() {
   const savedDataString = localStorage.getItem("my-Cart") || "{}";
-  console.log("savedadatastring is", savedDataString);
   const savedData = JSON.parse(savedDataString);
 
   const [cart, setCart] = useState(savedData);
@@ -21,6 +20,11 @@ function App() {
   function handleAddToCart(productId, count) {
     const oldCount = cart[productId] || 0;
     const newCart = { ...cart, [productId]: oldCount + count };
+
+    updateCart(newCart);
+  }
+
+  function updateCart(newCart) {
     setCart(newCart);
     const cartString = JSON.stringify(newCart);
     localStorage.setItem("my-Cart", cartString);
@@ -49,7 +53,10 @@ function App() {
             <Route path="*" element={<NotFound />}>
               {" "}
             </Route>
-            <Route path="/Cart" element={<Cart cart={cart} totalcoun />}>
+            <Route
+              path="/Cart"
+              element={<Cart cart={cart} updateCart={updateCart} />}
+            >
               {" "}
             </Route>
             <Route path="/LoginPage" element={<LoginPage />}></Route>

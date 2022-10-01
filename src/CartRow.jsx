@@ -1,34 +1,39 @@
 import { Delete } from "@material-ui/icons";
 import React from "react";
 
-function CartRow({ cart, countKaData }) {
-  console.log("countKaData is this", countKaData[cart.id]);
+function CartRow({ cart, quantity, onQuantityChange, onRemove }) {
+  function handleChange(event) {
+    onQuantityChange(cart.id, +event.target.value);
+  }
 
-  const numData = countKaData[cart.id];
-  const subTotal = numData * cart.price;
+  function handleCrossClick() {
+    onRemove(cart.id);
+  }
 
   return (
-    <>
-      <div className="flex justify-between w-full h-20 border border-b-gray-500 border-x-gray-500">
-        <div className="flex items-center px-10 space-x-[54px]">
-          <Delete className="text-gray-300 cursor-pointer hover:text-primary-500" />
-          <img
-            className="w-16 rounded-md mix-blend-multiply"
-            src={cart.thumbnail}
-          />
-          <p className="text-primary-500">{cart.title}</p>
-        </div>
-        <div className="flex items-center md:mr-[60px] md:space-x-[90px]">
-          <p>${cart.price}</p>
-          <input
-            type="number"
-            value={numData}
-            className="h-8 pl-3 pr-2 border border-gray-200 rounded w-14 "
-          />
-          <p>{subTotal}</p>
-        </div>
+    <div className="flex flex-row items-center max-w-full px-6 py-4 space-x-10 font-semibold text-gray-500 border border-b-gray-100 border-x-gray-100">
+      <Delete
+        onClick={handleCrossClick}
+        className="text-gray-300 cursor-pointer hover:text-primary-500"
+      />
+      <div className="w-20 h-16">
+        <img
+          className="object-cover w-full h-full rounded-md mix-blend-multiply"
+          src={cart.thumbnail}
+        />
       </div>
-    </>
+      <span className="pl-5 font-bold grow text-primary-500">{cart.title}</span>
+      <div className="flex items-center space-x-[87px]">
+        <span className="w-12 ">${cart.price}.00</span>
+        <input
+          type="number"
+          value={quantity}
+          onChange={handleChange}
+          className="w-12 p-2 border border-gray-200 rounded text-bold"
+        />
+        <span className="w-20">{quantity * cart.price}.00</span>{" "}
+      </div>
+    </div>
   );
 }
 
