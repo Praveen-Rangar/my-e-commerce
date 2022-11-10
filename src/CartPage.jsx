@@ -4,9 +4,19 @@ import { useState } from "react";
 import { getProductData } from "./Api";
 import Loading from "./Loading";
 import { useEffect } from "react";
+import NoProduct from "./NoProduct";
 
 function CartPage({ cart, updateCart }) {
   const [data, setData] = useState([]);
+
+  console.log("data", data);
+
+  if (data.length < 0) {
+    return <NoProduct />;
+  } else {
+    console.log("dchjcjhcjhcgjh");
+  }
+
   const [loading, setLoading] = useState(true);
 
   console.log("cart aagaya hai bhaiyiyon", cart);

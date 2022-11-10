@@ -14,8 +14,11 @@ function ProductDetails({ onAddToCart }) {
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(1);
 
-  useEffect( function () { const promise = getProductData(id);
-      promise   .then(function (product) {
+  useEffect(
+    function () {
+      const promise = getProductData(id);
+      promise
+        .then(function (product) {
           setProduct(product);
           setLoading(false);
           setCount(1);
@@ -68,6 +71,7 @@ function ProductDetails({ onAddToCart }) {
               <input
                 type="number"
                 value={count}
+                min="1"
                 onChange={onHandleChange}
                 className="h-8 pl-3 pr-2 border border-gray-200 rounded w-14 "
               />

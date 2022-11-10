@@ -50,7 +50,7 @@ function CartList({ data, cart, updateCart }) {
           );
         })}
 
-        <div className="flex items-center justify-between w-full h-20 border border-b-gray-500 border-x-gray-500">
+        <div className="flex items-center justify-between w-full h-20 border border-b-gray-200 border-x-gray-200">
           <div className="flex px-4 space-x-5">
             <input
               className="w-40 h-8 px-2 border border-gray-500"

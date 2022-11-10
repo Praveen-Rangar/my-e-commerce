@@ -4,8 +4,10 @@ import { getProductList } from "./Api";
 import NoMatching from "./NoMatching";
 import Loading from "./Loading";
 import { GoSearch } from "react-icons/go";
+import { Button } from "@material-ui/core";
+import Withuser from "./Withuser";
 
-function ProductListPage() {
+function ProductListPage({ setUser }) {
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -63,18 +65,25 @@ function ProductListPage() {
     return <Loading />;
   }
 
+  function handleLogOut(user) {
+    localStorage.removeItem("token");
+    setUser(undefined);
+  }
   return (
     <div>
-      <div className="mx-4 my-6 mb-5 bg-white rounded md:mx-8 md:mt-[70px] md:pb-24 md:py-20 md:px-10">
+      <Button className="p-5 bg-primary-300" onClick={handleLogOut}>
+        Logout
+      </Button>
+      <div className="mt-32 mx-4 my-6 mb-5 bg-white rounded md:mx-8 md:mt-[50px] md:pb-24 md:py-20 md:px-10">
         <div className="flex flex-wrap py-6 mx-5 md:justify-between md:px-6">
           <div
-            className=" flex items-center border border-solid border-gray-500 rounded-md 
-          ml-[10px] p-[5px] focus-within:border-[#8a4af3] transition-all"
+            className="w-[222px] flex items-center border border-solid border-primary-300 rounded-md 
+          ml-[10px] p-[5px] focus-within:border-[#df2020] transition-all"
           >
             <input
               value={query}
               placeholder="search"
-              className="w-full rounded outline-none md:w-64"
+              className="w-full rounded outline-none md:w-64 "
               onChange={handleChange}
             />
             <GoSearch className="text-[16px]" />
@@ -82,7 +91,7 @@ function ProductListPage() {
           <select
             value={sort}
             onChange={handleSortChange}
-            className="w-full mt-2 border border-gray-500 rounded-md md:border-2 md:w-60"
+            className="mt-2 ml-2 border border-primary-300 rounded-md max-w-[222px] md:border md:w-60 "
             name="default sorting"
             id="sorting"
           >
@@ -100,4 +109,4 @@ function ProductListPage() {
   );
 }
 
-export default ProductListPage;
+export default Withuser(ProductListPage);

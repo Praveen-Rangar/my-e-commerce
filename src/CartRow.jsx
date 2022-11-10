@@ -28,6 +28,7 @@ function CartRow({ cart, quantity, onQuantityChange, onRemove }) {
         <input
           type="number"
           value={quantity}
+          min="1"
           onChange={handleChange}
           className="w-12 p-2 border border-gray-200 rounded text-bold"
         />
