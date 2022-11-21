@@ -1,65 +1,64 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import ProductList from "./ProductList";
 import { getProductList } from "./Api";
 import NoMatching from "./NoMatching";
 import Loading from "./Loading";
 import { GoSearch } from "react-icons/go";
 import { Button } from "@material-ui/core";
-import Withuser from "./Withuser";
+import { useSearchParams } from "react-router-dom";
+import WithUser from "./Withuser";
 
 function ProductListPage({ setUser }) {
-  const [productList, setProductList] = useState([]);
+  const [productData, setProductData] = useState();
   const [loading, setLoading] = useState(true);
 
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("default");
+  let [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(function () {
-    const list = getProductList();
+  const params = Object.fromEntries([...searchParams]);
+  let { query, sort, page } = params;
 
-    list.then(function (product) {
-      setProductList(product);
-      setLoading(false);
-    });
-  }, []);
+  query = query || "";
+  sort = sort || "default";
 
-  let data = productList.filter(function (item) {
-    const lowerCaseTitle = item.title.toLowerCase();
-    const lowercaseQuery = query.toLowerCase();
-    return lowerCaseTitle.indexOf(lowercaseQuery) != -1;
-  });
+  page = +page || 1;
+
+  useEffect(
+    function () {
+      let sortBy;
+      let sortType;
+
+      if (sort == "title") {
+        sortBy = "title";
+      } else if (sort == "low to high") {
+        sortBy = "price";
+      } else if (sort == "high to low") {
+        sortBy = "price";
+        sortType = "desc";
+      }
+
+      getProductList(sortBy, query, page, sortType).then(function (xyz) {
+        setProductData(xyz);
+        setLoading(false);
+      });
+    },
+    [sort, query, page]
+  );
 
   function handleChange(event) {
-    setQuery(event.target.value);
+    setSearchParams(
+      { ...params, query: event.target.value, page: 1 },
+      { replace: false }
+    );
   }
 
   function handleSortChange(event) {
-    setSort(event.target.value);
+    setSearchParams(
+      { ...params, sort: event.target.value },
+      {
+        replace: false,
+      }
+    );
   }
-
-  useMemo(
-    function () {
-      console.log("usememo running");
-      if (sort === "low to high") {
-        data.sort(function (x, y) {
-          return x.price - y.price;
-        });
-      }
-
-      if (sort === "high to low") {
-        data.sort(function (x, y) {
-          return y.price - x.price;
-        });
-      }
-
-      if (sort === "Title") {
-        data.sort(function (x, y) {
-          return x.title < y.title ? -1 : 1;
-        });
-      }
-    },
-    [sort]
-  );
 
   if (loading) {
     return <Loading />;
@@ -67,6 +66,8 @@ function ProductListPage({ setUser }) {
 
   function handleLogOut(user) {
     localStorage.removeItem("token");
+    localStorage.removeItem("tokenSignup");
+
     setUser(undefined);
   }
   return (
@@ -96,17 +97,24 @@ function ProductListPage({ setUser }) {
             id="sorting"
           >
             <option value="default">default sorting</option>
-            <option value="Title">Short by title</option>
+            <option value="title">Short by title</option>
             <option value="low to high">Short by price:low to high</option>
             <option value="high to low">Short by price:high to low</option>
           </select>
         </div>
 
-        {data.length > 0 && <ProductList products={data} />}
-        {data.length == 0 && <NoMatching />}
+        {productData.data.length > 0 && (
+          <ProductList
+            products={productData.data}
+            productDataMeta={productData.meta}
+            params={params}
+            page={page}
+          />
+        )}
+        {productData.data.length == 0 && <NoMatching />}
       </div>
     </div>
   );
 }
 
-export default Withuser(ProductListPage);
+export default WithUser(ProductListPage);

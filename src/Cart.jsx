@@ -1,12 +1,13 @@
 import React from "react";
 import CartPage from "./CartPage";
+import { withCart } from "./WithProvider";
 
-function Cart({ cart, updateCart }) {
+function Cart() {
   return (
     <div>
-      <CartPage cart={cart} updateCart={updateCart} />
+      <CartPage/>
     </div>
   );
 }
 
-export default Cart;
+export default withCart(Cart);

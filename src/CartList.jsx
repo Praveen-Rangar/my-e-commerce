@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from "react";
 import CartRow from "./CartRow";
+import { withCart } from "./WithProvider";
 
-function CartList({ data, cart, updateCart }) {
-  const [localCart, setLocalCart] = useState(cart);
+function CartList({ cart, updateCart }) {
+  const [quantityMap, setQuantityMap] = useState();
+
+  const cartToQuantityMap = () =>
+    cart.reduce(
+      (m, cartItem) => ({ ...m, [cartItem.product.id]: cartItem.quantity }),
+      {}
+    );
 
   useEffect(
     function () {
-      setLocalCart(cart);
+      setQuantityMap(cartToQuantityMap());
     },
     [cart]
   );
 
-  function handleQuantityChange(productid, newValue) {
-    const newLocalcart = { ...localCart, [productid]: newValue };
-    setLocalCart(newLocalcart);
+  function handleQuanityChange(productId, newValue) {
+    const newQuantityMap = { ...quantityMap, [productId]: newValue };
+    setQuantityMap(newQuantityMap);
   }
 
-  function handleUpdateCartClick() {
-    updateCart(localCart);
+  function handeUpdateCartClick() {
+    updateCart(quantityMap);
   }
 
-  function handleRemove(productid) {
-    const newCart = { ...cart };
-    delete newCart[productid];
-    updateCart(newCart);
+  function handleRemove(productId) {
+    const newQuantityMap = cartToQuantityMap();
+    delete newQuantityMap[productId];
+    updateCart(newQuantityMap);
   }
 
   return (
@@ -38,17 +45,15 @@ function CartList({ data, cart, updateCart }) {
           </div>
         </div>
 
-        {data.map(function (item) {
-          return (
-            <CartRow
-              key={data.id}
-              cart={item}
-              quantity={localCart[item.id]}
-              onQuantityChange={handleQuantityChange}
-              onRemove={handleRemove}
-            />
-          );
-        })}
+        {cart.map((cartItem) => (
+          <CartRow
+            key={cartItem.product.id}
+            product={cartItem.product}
+            quantity={quantityMap[cartItem.product.id]}
+            onQuantityChange={handleQuanityChange}
+            onRemove={handleRemove}
+          />
+        ))}
 
         <div className="flex items-center justify-between w-full h-20 border border-b-gray-200 border-x-gray-200">
           <div className="flex px-4 space-x-5">
@@ -63,7 +68,7 @@ function CartList({ data, cart, updateCart }) {
           </div>
           <div className="flex px-4 ">
             <button
-              onClick={handleUpdateCartClick}
+              onClick={handeUpdateCartClick}
               className="h-8 text-white rounded w-44 bg-primary-500 hover:bg-primary-700"
             >
               UPDATE CART
@@ -75,4 +80,4 @@ function CartList({ data, cart, updateCart }) {
   );
 }
 
-export default CartList;
+export default withCart(CartList);

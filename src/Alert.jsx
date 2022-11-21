@@ -14,6 +14,7 @@ const themeMap = {
     Icon: CgDanger,
   },
 };
+
 function Alert({ alert, removeAlert }) {
   useEffect(
     function () {
@@ -26,14 +27,12 @@ function Alert({ alert, removeAlert }) {
     },
     [alert]
   );
-
   if (!alert) {
     return <></>;
   }
+
   const { message, type } = alert;
   const { color, Icon } = themeMap[type];
-
-  console.log("jkcbdjsgdmsdbmdbmsndbsmdnbcsdmncbsdmn");
 
   return (
     <>

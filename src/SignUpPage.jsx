@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import Input from "./Input";
 import axios from "axios";
 import Withuser from "./Withuser";
+import WithAlert from "./WithAlert";
 
 function callLoginApi(values, bag) {
   axios
@@ -20,7 +21,10 @@ function callLoginApi(values, bag) {
       bag.props.setUser(user);
     })
     .catch(() => {
-      console.log("invalid credentials");
+      bag.props.setAlert({
+        type: "error",
+        message: "account already exist",
+      });
     });
 }
 
@@ -150,4 +154,4 @@ const formikSignUp = withFormik({
   handleSubmit: callLoginApi,
 })(SignUpPage);
 
-export default Withuser(formikSignUp);
+export default WithAlert(Withuser(formikSignUp));

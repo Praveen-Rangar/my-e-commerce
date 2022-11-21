@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
+import { UserContext } from "./Contexts";
 
-import { userContext } from "./Contexts";
 
 const Withuser = (IncomingComponent) => {
   const OutgoingComponent = (props) => {
-    const contextData = useContext(userContext);
+    const contextData = useContext(UserContext);
     return <IncomingComponent {...props} {...contextData} />;
   };
   return OutgoingComponent;

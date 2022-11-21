@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { AlertContext, userContext } from "./Contexts";
+import { AlertContext, CartContext, UserContext } from "./Contexts";
 
-const WithProvider = (provider) => (IncomingComponent) => (props) => {
+const withProvider = (provider) => (IncomingComponent) => (props) => {
   const contextData = useContext(provider);
   return <IncomingComponent {...props} {...contextData} />;
 };
 
-export default WithProvider;
+export default withProvider;
 
-export const withAlert = WithProvider(AlertContext);
-export const withUser = WithProvider(userContext);
+export const withAlert = withProvider(AlertContext);
+export const withUser = withProvider(UserContext);
+export const withCart = withProvider(CartContext);

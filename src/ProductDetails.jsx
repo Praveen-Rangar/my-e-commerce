@@ -5,8 +5,9 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import { getProductData } from "./Api";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
+import { withCart } from "./WithProvider";
 
-function ProductDetails({ onAddToCart }) {
+function ProductDetails({ addToCart }) {
   const params = useParams();
   const id = +params.id;
 
@@ -16,16 +17,15 @@ function ProductDetails({ onAddToCart }) {
 
   useEffect(
     function () {
-      const promise = getProductData(id);
-      promise
-        .then(function (product) {
-          setProduct(product);
-          setLoading(false);
-          setCount(1);
-        })
-        .catch(function () {
-          setLoading(false);
-        });
+      const pr = getProductData(id);
+
+      pr.then(function (response) {
+        setProduct(response);
+        setLoading(false);
+        setCount(1);
+      }).catch(function () {
+        setLoading(false);
+      });
     },
     [id]
   );
@@ -36,8 +36,7 @@ function ProductDetails({ onAddToCart }) {
 
   function handleButtonClick() {
     setCount(1);
-
-    return onAddToCart(id, count);
+    addToCart(id, count);
   }
 
   if (loading) {
@@ -117,4 +116,4 @@ function ProductDetails({ onAddToCart }) {
   );
 }
 
-export default ProductDetails;
+export default withCart(ProductDetails);

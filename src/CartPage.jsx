@@ -1,53 +1,12 @@
 import React from "react";
 import CartList from "./CartList";
-import { useState } from "react";
-import { getProductData } from "./Api";
-import Loading from "./Loading";
-import { useEffect } from "react";
-import NoProduct from "./NoProduct";
 
-function CartPage({ cart, updateCart }) {
-  const [data, setData] = useState([]);
-
-  console.log("data", data);
-
-  if (data.length < 0) {
-    return <NoProduct />;
-  } else {
-    console.log("dchjcjhcjhcgjh");
-  }
-
-  const [loading, setLoading] = useState(true);
-
-  console.log("cart aagaya hai bhaiyiyon", cart);
-
-  useEffect(
-    function () {
-      Promise.all(
-        Object.keys(cart).map(function (productId) {
-          return getProductData(productId);
-        })
-      )
-        .then(function (products) {
-          setData(products);
-          setLoading(false);
-        })
-        .catch(function () {
-          setLoading(false);
-        });
-    },
-    [cart]
-  );
-
-  if (loading) {
-    return <Loading />;
-  }
-
+function CartPage() {
   return (
     <>
       <div className="w-full h-full p-10 py-12 gray-200">
         <div className="w-full h-full px-20 py-20 pt-20 bg-white max-w-[px]">
-          <CartList data={data} cart={cart} updateCart={updateCart} />
+          <CartList />
 
           <div className="flex justify-end mt-20">
             <div className=" w-[50%] border border-gray-100">

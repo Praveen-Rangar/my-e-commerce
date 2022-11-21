@@ -1,13 +1,13 @@
 import { Delete } from "@material-ui/icons";
 import React from "react";
 
-function CartRow({ cart, quantity, onQuantityChange, onRemove }) {
+function CartRow({ product, quantity, onQuantityChange, onRemove }) {
   function handleChange(event) {
-    onQuantityChange(cart.id, +event.target.value);
+    onQuantityChange(product.id, +event.target.value);
   }
 
   function handleCrossClick() {
-    onRemove(cart.id);
+    onRemove(product.id);
   }
 
   return (
@@ -19,12 +19,14 @@ function CartRow({ cart, quantity, onQuantityChange, onRemove }) {
       <div className="w-20 h-16">
         <img
           className="object-cover w-full h-full rounded-md mix-blend-multiply"
-          src={cart.thumbnail}
+          src={product.thumbnail}
         />
       </div>
-      <span className="pl-5 font-bold grow text-primary-500">{cart.title}</span>
+      <span className="pl-5 font-bold grow text-primary-500">
+        {product.title}
+      </span>
       <div className="flex items-center space-x-[87px]">
-        <span className="w-12 ">${cart.price}.00</span>
+        <span className="w-12 ">${product.price}.00</span>
         <input
           type="number"
           value={quantity}
@@ -32,7 +34,7 @@ function CartRow({ cart, quantity, onQuantityChange, onRemove }) {
           onChange={handleChange}
           className="w-12 p-2 border border-gray-200 rounded text-bold"
         />
-        <span className="w-20">{quantity * cart.price}.00</span>{" "}
+        <span className="w-20">{quantity * product.price}.00</span>{" "}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ function callLoginApi(values, bag) {
     .then((response) => {
       const { user, token } = response.data;
       localStorage.setItem("token", token);
-      console.log(bag);
+
       bag.props.setUser(user);
     })
     .catch(() => {

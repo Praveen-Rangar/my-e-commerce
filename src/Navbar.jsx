@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { Badge } from "@material-ui/core";
 import { ShoppingCartOutlined } from "@material-ui/icons";
 import { AiFillHome } from "react-icons/ai";
+import { withCart } from "./WithProvider";
 
-function Navbar({ productCount }) {
+function Navbar({ cartCount }) {
   return (
     <div className=" hidden md:block border-b border-gray-100  md:py-[10px]  bg-white ">
       <div className="  max-w-[1264px] max-h-[70px] flex items-center justify-between px-5 py-2   mx-3 ">
@@ -33,7 +34,7 @@ function Navbar({ productCount }) {
             </Link>
 
             <Link to={"/Cart"} className="cursor-pointer ">
-              <Badge badgeContent={productCount} color={"secondary"}>
+              <Badge badgeContent={cartCount} color={"secondary"}>
                 <ShoppingCartOutlined
                   style={{ fontSize: "35px" }}
                   className=" text-primary-500 pointer-cursor"
@@ -47,4 +48,4 @@ function Navbar({ productCount }) {
   );
 }
 
-export default Navbar;
+export default withCart(Navbar);
