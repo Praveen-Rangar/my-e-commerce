@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router";
-import { withUser } from "./withProvider";
+import { withUser } from "./WithProvider";
 
 function AuthRoute({ user, children }) {
   if (user) {

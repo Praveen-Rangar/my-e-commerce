@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCart, getProductsByIds, saveCart } from "../api";
 import { CartContext } from "../Contexts";
-import { withUser } from "../withProvider";
+import { withUser } from "../WithProvider";
 
 function CartProvider({ isLoggedIn, children }) {
   const [cart, setCart] = useState([]);
